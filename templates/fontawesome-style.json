@@ -1,0 +1,16 @@
+{
+  "icons": [
+<% var index = 0; %>
+<% _.each(glyphs, function(glyph) { %>
+    {
+      "name": "<%= glyph.name %>",
+      "id": "<%= glyph.name %>",
+      "unicode": "<%= glyph.codepoint.toString(16).toUpperCase() %>",
+      "created": <%= ++index%>,
+      "filter": [
+        "<%= glyph.name %>"
+      ]
+    },
+<% }); %>
+  ]
+}
