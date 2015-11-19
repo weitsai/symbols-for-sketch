@@ -28,64 +28,27 @@ gulp.task('symbols', function(){
       gulp.src('templates/' + template + '.css')
         .pipe(consolidate('lodash', options))
         .pipe(rename({ basename:fontName }))
-        .pipe(gulp.dest('dist/css/')); // set path to export your CSS
+        .pipe(gulp.dest('dist/web/css/')); // set path to export your CSS
 
       // if you don't need sample.html, remove next 4 lines
       gulp.src('templates/' + template + '.html')
         .pipe(consolidate('lodash', options))
         .pipe(rename({ basename:'sample' }))
-        .pipe(gulp.dest('dist/')); // set path to export your sample HTML
-    })
-    .pipe(gulp.dest('dist/fonts/')); // set path to export your fonts
-});
+        .pipe(gulp.dest('dist/web')); // set path to export your sample HTML
 
-gulp.task('symbols-android', function(){
-  gulp.src('symbol-android-16px.sketch') // you can also choose 'symbol-font-16px.sketch'
-    .pipe(sketch({
-      export: 'artboards',
-      formats: 'svg'
-    }))
-    .pipe(iconfont({ fontName: fontName }))
-    .on('glyphs', function(glyphs) {
-      var options = {
-        glyphs: glyphs.map(function(glyph) {
-          // this line is needed because gulp-iconfont has changed the api from 2.0
-          return { name: glyph.name, codepoint: glyph.unicode[0].charCodeAt(0) }
-        }),
-        fontName: fontName
-      };
       gulp.src('templates/' + template + '.xml')
         .pipe(consolidate('lodash', options))
         .pipe(rename({ basename:fontName }))
-        .pipe(gulp.dest('dist/xml/')); // set path to export your xml
-    })
-    .pipe(gulp.dest('dist/fonts/')); // set path to export your fonts
-});
+        .pipe(gulp.dest('dist/android/')); // set path to export your xml
 
 
-gulp.task('symbols-sketch', function(){
-  gulp.src('symbol-android-16px.sketch') // you can also choose 'symbol-font-16px.sketch'
-    .pipe(sketch({
-      export: 'artboards',
-      formats: 'svg'
-    }))
-    .pipe(iconfont({ fontName: fontName }))
-    .on('glyphs', function(glyphs) {
-      var options = {
-        glyphs: glyphs.map(function(glyph) {
-          // this line is needed because gulp-iconfont has changed the api from 2.0
-          return { name: glyph.name, codepoint: glyph.unicode[0].charCodeAt(0) }
-        }),
-        fontName: fontName
-      };
       gulp.src('templates/' + template + '.json')
         .pipe(consolidate('lodash', options))
         .pipe(rename({ basename:fontName }))
-        .pipe(gulp.dest('dist/json/')); // set path to export your xml
+        .pipe(gulp.dest('dist/sketch-icon/')); // set path to export your xml
     })
     .pipe(gulp.dest('dist/fonts/')); // set path to export your fonts
 });
-
 
 gulp.task('watch', function(){
   gulp.watch('*.sketch/Data', { debounceDelay: 3000 }, ['symbols']); // wait 3 sec after the last run
