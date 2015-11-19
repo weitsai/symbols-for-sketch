@@ -8,7 +8,7 @@ var fontName = 'howo'; // set name of your symbol font
 var template = 'fontawesome-style'; // you can also choose 'foundation-style'
 
 gulp.task('symbols', function(){
-  gulp.src('symbol-font-14px.sketch') // you can also choose 'symbol-font-16px.sketch'
+  gulp.src('symbol-android-16px.sketch') // you can also choose 'symbol-font-16px.sketch'
     .pipe(sketch({
       export: 'artboards',
       formats: 'svg'
@@ -21,7 +21,7 @@ gulp.task('symbols', function(){
           return { name: glyph.name, codepoint: glyph.unicode[0].charCodeAt(0) }
         }),
         fontName: fontName,
-        fontPath: '../fonts/', // set path to font (from your CSS file if relative)
+        fontPath: '../../fonts/', // set path to font (from your CSS file if relative)
         className: 's' // set class name in your CSS
       };
 
